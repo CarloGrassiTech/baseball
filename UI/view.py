@@ -1,5 +1,7 @@
 import flet as ft
 
+from model.model import Model
+
 
 class View(ft.UserControl):
     def __init__(self, page: ft.Page):
@@ -24,7 +26,9 @@ class View(ft.UserControl):
         self._title = ft.Text("TdP Baseball Manager 2024", color="blue", size=24)
         # self._page.controls.append(self._title)
 
-        self._ddAnno = ft.Dropdown(label="Anno", width=200, alignment=ft.alignment.top_left)
+        self._ddAnno = ft.Dropdown(label="Anno", width=200, alignment=ft.alignment.top_left, on_change=self._controller.handle_year)
+        for i in Model.getAllYears():
+            self._ddAnno.options.append(ft.dropdown.Option(i[0]))
 
         row1 = ft.Row([ft.Container(self._title, width=500),
                        ft.Container(None, width=0),
